@@ -2,6 +2,7 @@ import React from 'react';
 import Home from './HomeComponent';
 import Menu from './MenuComponent';
 import Contact from './ContactComponent';
+import About from './AboutComponent';
 import DishDetail  from './DishdetailComponent';
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
@@ -42,6 +43,8 @@ class Main extends React.Component{
       );
     };
 
+
+
     return(
       <div>
           <Header />
@@ -51,6 +54,7 @@ class Main extends React.Component{
              {/* we have to pass some props so we made inline function component for menu */}
              <Route path='/menu/:dishId' component={DishWithId} />
             <Route exact path='/contactus' component={Contact} />
+            <Route exact path='/aboutus' component={() => <About leaders={this.state.leaders} />} />
             <Redirect to="/home" />
             {/* home is set to default */}
           </Switch>

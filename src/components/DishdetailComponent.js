@@ -8,8 +8,8 @@ import { Link } from 'react-router-dom'
                         <Card>
                             <CardImg top src={dish.image} alt={dish.name} />
                             <CardBody>
-                            <CardTitle>{dish.name}</CardTitle>
-                            <CardText>{dish.description}</CardText>
+                                <CardTitle>{dish.name}</CardTitle>
+                                <CardText>{dish.description}</CardText>
                             </CardBody>
                         </Card>
                     </div>
