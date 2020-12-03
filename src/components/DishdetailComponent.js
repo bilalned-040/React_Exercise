@@ -24,9 +24,8 @@ const minLength = (len) => (val) => val && (val.length >= len);
         }
 
         handleSubmit(values) {
-            console.log('Current State is: ' + JSON.stringify(values));
-            alert('Current State is: ' + JSON.stringify(values));
             this.toggleModal();
+            this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
         }
 
         render(){
@@ -56,12 +55,12 @@ const minLength = (len) => (val) => val && (val.length >= len);
                             </Row>
                             <Row>
                                 <Col xs={12}>
-                                <Label htmlFor="authorname">Your Name</Label>
+                                <Label htmlFor="author">Your Name</Label>
                                 </Col>
                             </Row>
                             <Row className="form-group">
                                 <Col xs={12}>
-                                    <Control.text model=".authorname" id="authorname" name="authorname"
+                                    <Control.text model=".author" id="author" name="author"
                                         placeholder="Your Name"
                                         className="form-control"
                                         validators={{
@@ -70,7 +69,7 @@ const minLength = (len) => (val) => val && (val.length >= len);
                                          />
                                     <Errors
                                         className="text-danger"
-                                        model=".authorname"
+                                        model=".author"
                                         show="touched"
                                         messages={{
                                             minLength: 'Must be greater than 2 characters',
@@ -119,7 +118,7 @@ const minLength = (len) => (val) => val && (val.length >= len);
 
 
 
-        function RenderComments({comments}){
+        function RenderComments({comments, addComment, dishId}){
             if (comments != null) {
                 const commentList = comments.map((comment) => {
                     return (
@@ -139,7 +138,7 @@ const minLength = (len) => (val) => val && (val.length >= len);
                         <ul className="list-unstyled">
                             {commentList}
                         </ul>
-                        <CommentForm /> 
+                        <CommentForm dishId={dishId} addComment={addComment} /> 
                     </div>
                 )
             }
@@ -167,7 +166,9 @@ const minLength = (len) => (val) => val && (val.length >= len);
                 </div>
                 <div className="row">
                         <RenderDish dish={props.dish} />
-                        <RenderComments comments={props.comments} />     
+                        <RenderComments comments={props.comments}
+                        addComment={props.addComment}
+                        dishId={props.dish.id} />     
                 </div>
                 </div>
             )
