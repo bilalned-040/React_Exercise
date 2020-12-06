@@ -19,7 +19,7 @@ class Contact extends React.Component {
     }
 
     handleSubmit(values) {
-        alert('Thank you for your Feedback! \n' + JSON.stringify(values));
+        // alert('Thank you for your Feedback! \n' + JSON.stringify(values));
         this.props.postFeedback(values);
         this.props.resetFeedbackForm(); 
     }
