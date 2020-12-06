@@ -1,36 +1,52 @@
 import React from 'react';
 import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { Loading } from './LoadingComponent';
+import { baseUrl } from '../shared/baseUrl';
+import { Fade, Stagger } from 'react-animation-components';
 
 function RenderLeader({leader}){
-    const leaders = leader.map((leader) => {
+    const leaders = leader.leaders.map((leader) => {
         return (
             <div key={leader.id}>
-                <Media tag="li">
-                  <Media left middle>
-                      <Media object src={leader.image} alt={leader.name} />
-                  </Media>
-                  <Media body className="ml-5">
-                    <Media heading>{leader.name}</Media>
-                    <p>{leader.designation}</p>
-                    <p>{leader.description}</p>
-                  </Media>
-                </Media>
+                <Fade in>
+                    <Media tag="li">
+                        <Media left middle>
+                            <Media object src={baseUrl + leader.image} alt={leader.name} />
+                        </Media>
+                        <Media body className="ml-5">
+                            <Media heading>{leader.name}</Media>
+                            <p>{leader.designation}</p>
+                            <p>{leader.description}</p>
+                        </Media>
+                    </Media>
+                </Fade>
             </div>
         );
     });
-    return(
-        <Media list>
-            {leaders}
-        </Media>
-    )
+
+    if (leader.isLoading) {
+        return(           
+            <Loading />
+        );
+    }
+    else if (leader.errMess) {
+        return(           
+            <h4>{leader.errMess}</h4>
+        );
+    }
+    else
+        return(
+            <Media list>
+                <Stagger in>
+                    {leaders}
+                </Stagger>
+            </Media>
+        )
 
 }
 
 function About(props) {
-
-    
-
     return(
         <div className="container">
             <div className="row">
